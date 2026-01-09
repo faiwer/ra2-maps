@@ -9,7 +9,8 @@
     "typecheck": "tsgo --noEmit",
     "format": "prettier --write \"src/**/*.{ts,tsx,scss}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,scss}\"",
-    "prepare": "husky"
+    "prepare": "husky",
+    "deploy": "./deploy.sh"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx,scss}": "prettier --write"
