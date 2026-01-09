@@ -63,10 +63,10 @@ export function App() {
               onKeyDown={(e) => onCellKeyDown(e, index)}
             >
               <Image
-                src={`maps/${map.path}`}
+                src={`maps/${map.path.replace('.jpg', '.min.jpg')}`}
                 alt={map.name}
                 className={styles.image}
-                preview={{ mask: null }}
+                preview={{ src: `maps/${map.path}`, mask: null }}
               />
               <span className={styles.name}>{map.name}</span>
             </div>
