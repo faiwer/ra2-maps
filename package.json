@@ -10,7 +10,8 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,scss}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,scss}\"",
     "prepare": "husky",
-    "deploy": "./deploy.sh"
+    "deploy": "./deploy.sh",
+    "add-map": "./addMap.sh"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx,scss}": "prettier --write"
