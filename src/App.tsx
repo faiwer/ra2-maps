@@ -42,7 +42,7 @@ export function App() {
           {filteredMaps.map((map) => (
             <div key={map.path} className={styles.cell}>
               <Image
-                src={`/maps/${map.path}`}
+                src={`maps/${map.path}`}
                 alt={map.name}
                 className={styles.image}
                 preview={{ mask: null }}
