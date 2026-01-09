@@ -2,3 +2,4 @@ node_modules
 maps/*.jpg
 maps/*.png
 .DS_Store
+src/maps.json
