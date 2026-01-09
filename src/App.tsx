@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { Image } from 'antd'
 import maps from './maps.json'
 import styles from './App.module.scss'
 
@@ -36,18 +37,21 @@ export function App() {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-      <div className={styles.grid}>
-        {filteredMaps.map((map) => (
-          <div key={map.path} className={styles.cell}>
-            <img
-              src={`/maps/${map.path}`}
-              alt={map.name}
-              className={styles.image}
-            />
-            <span className={styles.name}>{map.name}</span>
-          </div>
-        ))}
-      </div>
+      <Image.PreviewGroup>
+        <div className={styles.grid}>
+          {filteredMaps.map((map) => (
+            <div key={map.path} className={styles.cell}>
+              <Image
+                src={`/maps/${map.path}`}
+                alt={map.name}
+                className={styles.image}
+                preview={{ mask: null }}
+              />
+              <span className={styles.name}>{map.name}</span>
+            </div>
+          ))}
+        </div>
+      </Image.PreviewGroup>
       {filteredMaps.length === 0 && (
         <p className={styles.noResults}>No maps found</p>
       )}
