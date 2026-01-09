@@ -1,46 +1,67 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { Image } from 'antd'
-import maps from './maps.json'
+import { useGridNavigation } from './hooks/useGridNavigation'
+import { useFilteredMaps } from './hooks/useFilteredMaps'
+import { useAutoFocus } from './hooks/useAutoFocus'
+import { useStableCallback } from './hooks/useStableCallback'
+import { SearchBar } from './components/SearchBar'
 import styles from './App.module.scss'
-
-const sortedMaps = [...maps].sort((a, b) => a.name.localeCompare(b.name))
-
-function fuzzyMatch(text: string, query: string): boolean {
-  const lowerText = text.toLowerCase()
-  const lowerQuery = query.toLowerCase()
-
-  let queryIndex = 0
-  for (const char of lowerText) {
-    if (char === lowerQuery[queryIndex]) {
-      queryIndex++
-      if (queryIndex === lowerQuery.length) return true
-    }
-  }
-  return queryIndex === lowerQuery.length
-}
 
 export function App() {
   const [search, setSearch] = useState('')
+  const [previewOpen, setPreviewOpen] = useState(false)
+  const searchRef = useAutoFocus<HTMLInputElement>()
 
-  const filteredMaps = useMemo(() => {
-    if (!search.trim()) return sortedMaps
-    return sortedMaps.filter((map) => fuzzyMatch(map.name, search))
-  }, [search])
+  const filteredMaps = useFilteredMaps(search)
+
+  const { gridRef, cellRefs, focusCell, onCellKeyDown } = useGridNavigation({
+    totalItems: filteredMaps.length,
+    previewOpen,
+    onEnter: useStableCallback((index: number) => {
+      const img = cellRefs.current[index]?.querySelector(
+        '.ant-image img',
+      ) as HTMLElement
+      img?.click()
+    }),
+    onEscape: useStableCallback(() => {
+      searchRef.current?.focus()
+    }),
+    onExitTop: useStableCallback(() => {
+      searchRef.current?.focus()
+    }),
+  })
+
+  const onSearchBarArrowDown = useStableCallback(() => {
+    if (filteredMaps.length > 0) {
+      focusCell(0)
+    }
+  })
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>RA2 Maps</h1>
-      <input
-        type="text"
-        className={styles.search}
-        placeholder="Search maps..."
+      <SearchBar
+        ref={searchRef}
         value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={setSearch}
+        onArrowDown={onSearchBarArrowDown}
       />
-      <Image.PreviewGroup>
-        <div className={styles.grid}>
-          {filteredMaps.map((map) => (
-            <div key={map.path} className={styles.cell}>
+      <Image.PreviewGroup
+        preview={{
+          onVisibleChange: (visible) => setPreviewOpen(visible),
+        }}
+      >
+        <div ref={gridRef} className={styles.grid}>
+          {filteredMaps.map((map, index) => (
+            <div
+              key={map.path}
+              ref={(el) => {
+                cellRefs.current[index] = el
+              }}
+              className={styles.cell}
+              tabIndex={0}
+              onKeyDown={(e) => onCellKeyDown(e, index)}
+            >
               <Image
                 src={`maps/${map.path}`}
                 alt={map.name}
