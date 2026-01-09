@@ -1,0 +1,28 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+}
+
+.title {
+  font-family: 'Orbitron', 'Segoe UI', sans-serif;
+  font-size: 4rem;
+  font-weight: 900;
+  color: #e94560;
+  text-shadow: 0 0 40px rgba(233, 69, 96, 0.5);
+  margin: 0;
+  letter-spacing: 0.1em;
+}
+
+.subtitle {
+  font-family: 'Rajdhani', 'Segoe UI', sans-serif;
+  font-size: 1.5rem;
+  color: #eee;
+  margin-top: 1rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
