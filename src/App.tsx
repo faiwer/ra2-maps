@@ -7,7 +7,7 @@ const sortedMaps = [...maps].sort((a, b) => a.name.localeCompare(b.name))
 function fuzzyMatch(text: string, query: string): boolean {
   const lowerText = text.toLowerCase()
   const lowerQuery = query.toLowerCase()
-  
+
   let queryIndex = 0
   for (const char of lowerText) {
     if (char === lowerQuery[queryIndex]) {
