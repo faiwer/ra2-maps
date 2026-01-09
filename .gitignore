@@ -3,3 +3,4 @@ maps/*.jpg
 maps/*.png
 .DS_Store
 src/maps.json
+dist

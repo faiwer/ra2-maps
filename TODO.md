@@ -1,0 +1,4 @@
+- Support relative paths for the whole app
+- Deploy script
+- Add a map script
+- Support smaller preview images to keep traffic low
