@@ -1,18 +1,18 @@
-import { useState } from 'react'
-import { Image } from 'antd'
-import { useGridNavigation } from './hooks/useGridNavigation'
-import { useFilteredMaps } from './hooks/useFilteredMaps'
-import { useAutoFocus } from './hooks/useAutoFocus'
-import { useStableCallback } from './hooks/useStableCallback'
-import { SearchBar } from './components/SearchBar'
-import styles from './App.module.scss'
+import { useState } from 'react';
+import { Image } from 'antd';
+import { useGridNavigation } from './hooks/useGridNavigation';
+import { useFilteredMaps } from './hooks/useFilteredMaps';
+import { useAutoFocus } from './hooks/useAutoFocus';
+import { useStableCallback } from './hooks/useStableCallback';
+import { SearchBar } from './components/SearchBar';
+import styles from './App.module.scss';
 
 export function App() {
-  const [search, setSearch] = useState('')
-  const [previewOpen, setPreviewOpen] = useState(false)
-  const searchRef = useAutoFocus<HTMLInputElement>()
+  const [search, setSearch] = useState('');
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const searchRef = useAutoFocus<HTMLInputElement>();
 
-  const filteredMaps = useFilteredMaps(search)
+  const filteredMaps = useFilteredMaps(search);
 
   const { gridRef, cellRefs, focusCell, onCellKeyDown } = useGridNavigation({
     totalItems: filteredMaps.length,
@@ -20,22 +20,22 @@ export function App() {
     onEnter: useStableCallback((index: number) => {
       const img = cellRefs.current[index]?.querySelector(
         '.ant-image img',
-      ) as HTMLElement
-      img?.click()
+      ) as HTMLElement;
+      img?.click();
     }),
     onEscape: useStableCallback(() => {
-      searchRef.current?.focus()
+      searchRef.current?.focus();
     }),
     onExitTop: useStableCallback(() => {
-      searchRef.current?.focus()
+      searchRef.current?.focus();
     }),
-  })
+  });
 
   const onSearchBarArrowDown = useStableCallback(() => {
     if (filteredMaps.length > 0) {
-      focusCell(0)
+      focusCell(0);
     }
-  })
+  });
 
   return (
     <div className={styles.container}>
@@ -56,7 +56,7 @@ export function App() {
             <div
               key={map.path}
               ref={(el) => {
-                cellRefs.current[index] = el
+                cellRefs.current[index] = el;
               }}
               className={styles.cell}
               tabIndex={0}
@@ -77,5 +77,5 @@ export function App() {
         <p className={styles.noResults}>No maps found</p>
       )}
     </div>
-  )
+  );
 }

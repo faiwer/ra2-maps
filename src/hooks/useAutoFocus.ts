@@ -1,11 +1,11 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react';
 
 export function useAutoFocus<T extends HTMLElement>() {
-  const ref = useRef<T>(null)
+  const ref = useRef<T>(null);
 
   useEffect(() => {
-    ref.current?.focus()
-  }, [])
+    ref.current?.focus();
+  }, []);
 
-  return ref
+  return ref;
 }
