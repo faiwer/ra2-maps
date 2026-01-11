@@ -48,7 +48,8 @@ export function App() {
       />
       <Image.PreviewGroup
         preview={{
-          onVisibleChange: (visible) => setPreviewOpen(visible),
+          // @ts-expect-error Not typed on the lib's side :(
+          onOpenChange: (visible) => setPreviewOpen(visible),
         }}
       >
         <div ref={gridRef} className={styles.grid}>
