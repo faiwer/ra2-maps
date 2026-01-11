@@ -47,6 +47,10 @@ export function App() {
         onArrowDown={onSearchBarArrowDown}
       />
       <Image.PreviewGroup
+        // It seems antd has a bug. They don't update the inner cache of the
+        // rendered images once they are updated. It does it only on the
+        // `<PreviewGroup />` level during a regular render.
+        key={search}
         preview={{
           // @ts-expect-error Not typed on the lib's side :(
           onOpenChange: (visible) => setPreviewOpen(visible),
