@@ -18,12 +18,10 @@
   },
   "dependencies": {
     "antd": "^6.1.4",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "npm:@faiwer/react@^19.0.3",
+    "react-dom": "npm:@faiwer/react-dom@^19.0.1"
   },
   "devDependencies": {
-    "@types/react": "^19.0.2",
-    "@types/react-dom": "^19.0.2",
     "@typescript/native-preview": "^7.0.0-dev",
     "@vitejs/plugin-react": "^4.3.4",
     "husky": "^9.1.7",
